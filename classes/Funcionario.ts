@@ -15,16 +15,11 @@ class Funcionario {
         this.taxaHoraria = taxaHorariaP
     }
 
-    registrarHoras(idFuncionario: string, numHoras: number) {
-        if (this.id == idFuncionario) {
-            this.horasTrabalhadas.push(numHoras)
-            return
-        }
-
-        console.log('ID do funcionário está incorreto')
+    registrarHoras(numHoras: number): void {
+        this.horasTrabalhadas.push(numHoras)
     }
 
-    calcularSalarioMensal(){
+    calcularSalarioMensal(): number {
         let totalHoras = 0
         this.horasTrabalhadas.map(hora => {
             totalHoras += hora
@@ -32,5 +27,6 @@ class Funcionario {
         return totalHoras * this.taxaHoraria
     }
 }
+
 
 export default Funcionario

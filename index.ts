@@ -1,21 +1,17 @@
-const prompt = require("prompt-sync")()
+import Funcionario from "./classes/Funcionario"
+import PromptSync from "prompt-sync"
 
-const listaFuncionarios = []
+const prompt = PromptSync()
+const listaFuncionarios: Funcionario[] = []
 
-function adicionarFuncionario(id, nome, cargo, taxaHoraria){
-    let funcionario = {
-        id,
-        nome,
-        cargo,
-        taxaHoraria,
-        horasTrabalhadas: []
-    }
+function adicionarFuncionario(nome: string, cargo: string, taxaHoraria: number): void {
+    let funcionario = new Funcionario(nome, cargo, taxaHoraria)
 
     listaFuncionarios.push(funcionario)
 }
 
-function totalHorasTrabalhadas(funcionario){
-    
+function totalHorasTrabalhadas(funcionario) {
+
     let totalHoras = 0
 
     funcionario.horasTrabalhadas.map((horas) => {
@@ -24,36 +20,36 @@ function totalHorasTrabalhadas(funcionario){
     return totalHoras
 }
 
-function calcularINSS(funcionario){
+function calcularINSS(funcionario) {
     let salarioBruto = calcularSalarioMensal(funcionario)
     let inss = 0
 
-    if(salarioBruto > 4000.04){
+    if (salarioBruto > 4000.04) {
         inss = salarioBruto * 14 / 100
-    } else if (salarioBruto > 2666.69){
+    } else if (salarioBruto > 2666.69) {
         inss = salarioBruto * 12 / 100
-    } else if (salarioBruto > 1412.01){
+    } else if (salarioBruto > 1412.01) {
         inss = salarioBruto * 9 / 100
     } else {
         inss = salarioBruto * 7.5 / 100
     }
 
-    if(inss > 908.85){
+    if (inss > 908.85) {
         inss = 908.85
     }
 
     return inss
 }
 
-function calcularImpostoDeRenda(funcionario){
+function calcularImpostoDeRenda(funcionario) {
     let salarioBruto = calcularSalarioMensal(funcionario)
     let impostoDeRenda = 0
 
-    if(salarioBruto > 2112.00){
+    if (salarioBruto > 2112.00) {
         impostoDeRenda = salarioBruto * 7.5 / 100
-    } else if (salarioBruto > 2826.65){
+    } else if (salarioBruto > 2826.65) {
         impostoDeRenda = salarioBruto * 15 / 100
-    } else if (salarioBruto > 3751.06 && salarioBruto < 4664.68){
+    } else if (salarioBruto > 3751.06 && salarioBruto < 4664.68) {
         impostoDeRenda = salarioBruto * 22.5 / 100
     } else {
         impostoDeRenda = salarioBruto * 27.5 / 100
@@ -62,7 +58,7 @@ function calcularImpostoDeRenda(funcionario){
     return impostoDeRenda
 }
 
-function gerarRelatorioPagamento(){
+function gerarRelatorioPagamento() {
     console.log('---------- RELATÓRIO DE PAGAMENTO ---------- \n')
 
     listaFuncionarios.map((func) => {
@@ -82,8 +78,8 @@ function gerarRelatorioPagamento(){
     })
 }
 
-function gerenciarFolhaPagamento(){
-    function exibirMenu(){
+function gerenciarFolhaPagamento() {
+    function exibirMenu() {
         console.log("\n--- Sistema de Folha de Pagamento ---")
         console.log("1 - Adicionar Funcionário")
         console.log("2 - Registrar Horas Trabalhadas")
@@ -107,10 +103,15 @@ function gerenciarFolhaPagamento(){
                 break;
 
             case "2":
-                let idFuncionario = Number(prompt("Digite o id do funcionário: "));
+                let idFuncionario = (prompt("Digite o id do funcionário: "));
                 let numHoras = Number(prompt("Digite o número de horas trabalhadas: "));
 
-                registrarHoras(idFuncionario, numHoras);
+                listaFuncionarios.map(func => {
+                    if (func.id == idFuncionario) {
+                        func.registrarHoras(numHoras);
+                    }
+                })
+
                 break;
 
             case "3":
