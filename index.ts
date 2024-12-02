@@ -38,7 +38,7 @@ function calcularSalarioMensal(funcionario){
 }
 
 function calcularINSS(funcionario){
-    let salarioBruto= calcularSalarioMensal(funcionario)
+    let salarioBruto = calcularSalarioMensal(funcionario)
     let inss = 0
 
     if(salarioBruto > 4000.04){
@@ -58,6 +58,23 @@ function calcularINSS(funcionario){
     return inss
 }
 
+function calcularImpostoDeRenda(funcionario){
+    let salarioBruto = calcularSalarioMensal(funcionario)
+    let impostoDeRenda = 0
+
+    if(salarioBruto > 2112.00){
+        impostoDeRenda = salarioBruto * 7.5 / 100
+    } else if (salarioBruto > 2826.65){
+        impostoDeRenda = salarioBruto * 15 / 100
+    } else if (salarioBruto > 3751.06 && salarioBruto < 4664.68){
+        impostoDeRenda = salarioBruto * 22.5 / 100
+    } else {
+        impostoDeRenda = salarioBruto * 27.5 / 100
+    }
+
+    return impostoDeRenda
+}
+
 function gerarRelatorioPagamento(){
     console.log('---------- RELATÓRIO DE PAGAMENTO ---------- \n')
 
@@ -65,13 +82,15 @@ function gerarRelatorioPagamento(){
 
         let salarioBruto = calcularSalarioMensal(func)
         let descontoINSS = calcularINSS(func)
+        let descontoImpostoDeRenda = calcularImpostoDeRenda(func)
 
         console.log(`Nome: ${func.nome}`)
         console.log(`Nome: ${func.cargo}`)
         console.log(`Total de horas trabalhadas: ${totalHorasTrabalhadas(func)}`)
         console.log(`Total INSS: R$ ${descontoINSS.toFixed(2)}`)
+        console.log(`Total Imposto de Renda: R$ ${descontoImpostoDeRenda.toFixed(2)}`)
         console.log(`Salário bruto: R$ ${salarioBruto.toFixed(2)}`)
-        console.log(`Salário líquido: R$ ${(salarioBruto - descontoINSS).toFixed(2)}`)
+        console.log(`Salário líquido: R$ ${(salarioBruto - descontoINSS - descontoImpostoDeRenda).toFixed(2)}`)
         console.log('--------------------\n')
     })
 }
