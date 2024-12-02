@@ -14,14 +14,6 @@ function adicionarFuncionario(id, nome, cargo, taxaHoraria){
     listaFuncionarios.push(funcionario)
 }
 
-function registrarHoras(idFuncionario, numHoras){
-    listaFuncionarios.map((func) => {
-        if(func.id == idFuncionario){
-            func.horasTrabalhadas.push(numHoras)
-        }
-    })
-}
-
 function totalHorasTrabalhadas(funcionario){
     
     let totalHoras = 0
@@ -30,11 +22,6 @@ function totalHorasTrabalhadas(funcionario){
         totalHoras += horas
     })
     return totalHoras
-}
-
-function calcularSalarioMensal(funcionario){
-    let totalHoras = totalHorasTrabalhadas(funcionario)
-    return totalHoras * funcionario.taxaHoraria
 }
 
 function calcularINSS(funcionario){
