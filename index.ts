@@ -63,13 +63,13 @@ function gerarRelatorioPagamento() {
 
     listaFuncionarios.map((func) => {
 
-        let salarioBruto = calcularSalarioMensal(func)
+        let salarioBruto = func.calcularSalarioMensal()
         let descontoINSS = calcularINSS(func)
         let descontoImpostoDeRenda = calcularImpostoDeRenda(func)
 
         console.log(`Nome: ${func.nome}`)
         console.log(`Nome: ${func.cargo}`)
-        console.log(`Total de horas trabalhadas: ${totalHorasTrabalhadas(func)}`)
+        console.log(`Total de horas trabalhadas: ${func.calcularTotalHoras()}`)
         console.log(`Total INSS: R$ ${descontoINSS.toFixed(2)}`)
         console.log(`Total Imposto de Renda: R$ ${descontoImpostoDeRenda.toFixed(2)}`)
         console.log(`Salário bruto: R$ ${salarioBruto.toFixed(2)}`)
@@ -94,12 +94,11 @@ function gerenciarFolhaPagamento() {
         opcao = prompt("Digite a opção desejada: ");
         switch (opcao) {
             case "1":
-                let id = Number(prompt("Digite o id do funcionário: "));
                 let nome = prompt("Digite o nome do funcionário: ");
                 let cargo = prompt("Digite o cargo do funcionário: ");
                 let taxaHoraria = Number(prompt("Digite a taxa horária do funcionário: "));
 
-                adicionarFuncionario(id, nome, cargo, taxaHoraria);
+                adicionarFuncionario(nome, cargo, taxaHoraria);
                 break;
 
             case "2":
