@@ -8,7 +8,7 @@ class Funcionario {
     horasTrabalhadas: number[]
 
     constructor(nomeP: string, cargoP: string, taxaHorariaP: number) {
-        this.id = randomUUID().substring(0, 4) //gerar nº aleatório limitado a 4 caracteres
+        this.id = randomUUID().substring(0, 4) //gerar id aleatória limitado a 4 caracteres
         this.horasTrabalhadas = []
         this.nome = nomeP
         this.cargo = cargoP
@@ -19,12 +19,17 @@ class Funcionario {
         this.horasTrabalhadas.push(numHoras)
     }
 
-    calcularSalarioMensal(): number {
+    calcularTotalHoras():number {
         let totalHoras = 0
         this.horasTrabalhadas.map(hora => {
             totalHoras += hora
         })
-        return totalHoras * this.taxaHoraria
+
+        return totalHoras
+    }
+
+    calcularSalarioMensal(): number {
+        return this.calcularTotalHoras() * this.taxaHoraria
     }
 }
 
