@@ -106,11 +106,18 @@ function gerenciarFolhaPagamento() {
                 let idFuncionario = (prompt("Digite o id do funcionário: "));
                 let numHoras = Number(prompt("Digite o número de horas trabalhadas: "));
 
+                let funcionarioExiste = false
+
                 listaFuncionarios.map(func => {
                     if (func.id == idFuncionario) {
                         func.registrarHoras(numHoras);
+                        funcionarioExiste = true
                     }
                 })
+
+                if(!funcionarioExiste){
+                    console.log(`O funcionário com id ${idFuncionario} não existe.`)
+                }
 
                 break;
 
