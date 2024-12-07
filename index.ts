@@ -8,25 +8,23 @@ function adicionarFuncionario(nome: string, cargo: string, taxaHoraria: number):
     let funcionario = new Funcionario(nome, cargo, taxaHoraria)
 
     listaFuncionarios.push(funcionario)
+    console.log('Funcionário adicionado com sucesso!')
 }
 
-function totalHorasTrabalhadas(funcionario) {
-
-    let totalHoras = 0
-
-    funcionario.horasTrabalhadas.map((horas) => {
-        totalHoras += horas
+function exibirLista():void{
+    console.log('---------- RELATÓRIO DE PAGAMENTO ---------- \n')
+    listaFuncionarios.map((func) => {
+        func.exibirInformacoes()
     })
-    return totalHoras
 }
 
-function gerarRelatorioPagamento() {
+function gerarRelatorioPagamento(): void {
     console.log('---------- RELATÓRIO DE PAGAMENTO ---------- \n')
 
     listaFuncionarios.map((func) => {
 
         console.log(`Nome: ${func.nome}`)
-        console.log(`Nome: ${func.cargo}`)
+        console.log(`Cargo: ${func.cargo}`)
         console.log(`Total de horas trabalhadas: ${func.calcularTotalHoras()}`)
         console.log(`Total INSS: R$ ${func.calcularINSS()}`)
         console.log(`Total Imposto de Renda: R$ ${func.calcularImpostoDeRenda()}`)
@@ -36,13 +34,14 @@ function gerarRelatorioPagamento() {
     })
 }
 
-function gerenciarFolhaPagamento() {
-    function exibirMenu() {
+function gerenciarFolhaPagamento(): void {
+    function exibirMenu(): void {
         console.log("\n--- Sistema de Folha de Pagamento ---")
         console.log("1 - Adicionar Funcionário")
         console.log("2 - Registrar Horas Trabalhadas")
-        console.log("3 - Exibir Relatório de Pagamento")
-        console.log("4 - Sair")
+        console.log("3 - Exibir Informações dos funcionários")
+        console.log("4 - Exibir Relatório de Pagamento")
+        console.log("5 - Sair")
     }
 
     let opcao;
@@ -79,10 +78,14 @@ function gerenciarFolhaPagamento() {
                 break;
 
             case "3":
-                gerarRelatorioPagamento();
+                exibirLista()
                 break;
 
             case "4":
+                gerarRelatorioPagamento();
+                break;
+
+            case "5":
                 console.log("Saindo do sistema...");
                 break;
 
