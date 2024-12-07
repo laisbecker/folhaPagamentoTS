@@ -15,6 +15,16 @@ class Funcionario {
         this.taxaHoraria = taxaHorariaP
     }
 
+    exibirInformacoes():void{
+        console.log(`
+        --------------------
+        ID: ${this.id}
+        Nome: ${this.nome}
+        Cargo: ${this.cargo}
+        Horas trabalhadas: ${this.horasTrabalhadas}            
+        `)
+    }
+
     registrarHoras(numHoras: number): void {
         this.horasTrabalhadas.push(numHoras)
     }
